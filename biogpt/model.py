@@ -26,11 +26,12 @@ class Model:
             of the completion to generate.
         :return: a dict containing the generated completion.
         """
-        prompt = inputs.get("prompt", None)
+        prompt = inputs.get("prompt")
         max_length = inputs.get("max_length", 512)
+        num_return_sequences = inputs.get("num_return_sequences", 1)
 
         input_ids = self._tokenizer(prompt, return_tensors="pt").input_ids.to(_DEVICE)
-        results = self._model.generate(input_ids, max_length=max_length, num_return_sequences=5, do_sample=True)
+        results = self._model.generate(input_ids, max_length=max_length, num_return_sequences=num_return_sequences, do_sample=True)
 
         return {f"result_{i+1}": self._tokenizer.decode(result.squeeze(), skip_special_tokens=True) 
                 for i, result in enumerate(results)}
@@ -49,8 +50,8 @@ def main():
     if args.fetch:
         Model.fetch()
     
-    #model = Model()
-    #print(model.predict(inputs={"prompt": "COVID-19 is"}))
+    # model = Model()
+    # print(model.predict(inputs={"prompt": "COVID-19 is", "max_length": "20", "num_return_sequences": "3"}))
 
 if __name__ == "__main__":
     main()
