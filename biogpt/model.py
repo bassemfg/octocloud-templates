@@ -60,8 +60,8 @@ def main():
 
     if args.fetch:
         Model.fetch()
-    # m = Model()
-    # print(m.predict(inputs={"prompt":"Hello, my dog is cute"}))
+    #m = Model()
+    #print(m.predict(inputs={"prompt":"Hi. I am a man"}))
     
 if __name__ == "__main__":
     main()
